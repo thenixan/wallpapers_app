@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 
 class WallpapersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val wallpaperPreview: ImageView = itemView.findViewById(R.id.wallpaper_preview)
@@ -32,6 +33,7 @@ class WallpapersAdapter : RecyclerView.Adapter<WallpapersViewHolder>() {
     override fun onBindViewHolder(holder: WallpapersViewHolder, position: Int) {
         val item = items[position]
         holder.wallpaperAuthor.text = item.author
+        Picasso.get().load(item.previewUrl).into(holder.wallpaperPreview)
     }
 
 }
