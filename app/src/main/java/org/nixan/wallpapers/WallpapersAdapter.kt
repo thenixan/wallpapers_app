@@ -21,6 +21,8 @@ class WallpapersAdapter : RecyclerView.Adapter<WallpapersViewHolder>() {
             notifyDataSetChanged()
         }
 
+    var callback: OnWallpaperSelectedListener? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WallpapersViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_wallpaper, parent, false)
         return WallpapersViewHolder(view)
@@ -32,8 +34,13 @@ class WallpapersAdapter : RecyclerView.Adapter<WallpapersViewHolder>() {
 
     override fun onBindViewHolder(holder: WallpapersViewHolder, position: Int) {
         val item = items[position]
+        holder.itemView.setOnClickListener { callback?.onWallpaperSelected(item.fullsizeUrl) }
         holder.wallpaperAuthor.text = item.author
         Picasso.get().load(item.previewUrl).into(holder.wallpaperPreview)
     }
 
+}
+
+interface OnWallpaperSelectedListener {
+    fun onWallpaperSelected(wallpaperUrl: String)
 }
